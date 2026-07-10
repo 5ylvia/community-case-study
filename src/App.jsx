@@ -118,7 +118,7 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <BrowserRouter>
+        <BrowserRouter basename="/community-case-study">
           <AppContent />
           <Analytics />
         </BrowserRouter>

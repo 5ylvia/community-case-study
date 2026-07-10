@@ -15,7 +15,8 @@
       (function() {
         var redirect = new URLSearchParams(window.location.search).get('redirect');
         if (redirect) {
-          window.history.replaceState(null, '', redirect);
+          // Prepend base path so the browser URL is correct
+          window.history.replaceState(null, '', '/community-case-study' + redirect);
         }
       })();
     </script>
