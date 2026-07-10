@@ -21,8 +21,21 @@ import NotFoundPage from "./pages/NotFoundPage";
 import LowTurnoutModal from "./components/LowTurnoutModal.jsx";
 
 function AppContent() {
-  const { user, profile, guest, basePath, enterGuest } = useAuth();
+  const { user, profile, guest, basePath, enterGuest, setViewCityId, setViewCitySlug } = useAuth();
   const location = useLocation();
+
+  // Auto-switch city when URL points to a different city (logged-in user)
+  useEffect(() => {
+    if (!user || guest) return;
+    const match = location.pathname.match(/^\/([a-z-]+)\//);
+    if (!match) return;
+    const citySlug = match[1];
+    const urlCity = mockCities.find((c) => c.name.toLowerCase().replace(/\s+/g, "-") === citySlug);
+    if (urlCity && urlCity.id !== profile?.city_id) {
+      setViewCityId(urlCity.id);
+      setViewCitySlug(`/${citySlug}`);
+    }
+  }, []);
 
   // Auto guest entry when accessing a city URL directly
   if (!user && !guest) {

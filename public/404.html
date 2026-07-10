@@ -5,14 +5,11 @@
     <title>Dajeong</title>
     <script>
       // GitHub Pages SPA redirect
-      // Redirects all 404s to index.html so React Router can handle them
       var base = '/community-case-study';
       var path = window.location.pathname;
-      // Strip base prefix so React Router gets the relative path
       var relative = path.startsWith(base) ? path.slice(base.length) : path;
       window.location.replace(
-        window.location.origin + base + '/' +
-        '?redirect=' + encodeURIComponent(relative)
+        window.location.origin + base + '?redirect=' + encodeURIComponent(relative || '/')
       );
     </script>
   </head>
