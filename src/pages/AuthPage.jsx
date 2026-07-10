@@ -137,7 +137,7 @@ export default function AuthPage() {
                     <button
                       key={c.id}
                       onClick={() => {
-                        const slug = `/${(c.country || "nz").toLowerCase()}/${c.name.toLowerCase().replace(/\s+/g, "-")}`;
+                        const slug = `/${c.name.toLowerCase().replace(/\s+/g, "-")}`;
                         enterGuest(c.id, slug);
                         navigate(`${slug}/homemeal`);
                       }}

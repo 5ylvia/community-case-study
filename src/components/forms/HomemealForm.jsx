@@ -18,7 +18,7 @@ export default function HomemealForm({ form, setForm, editMode, showErrors }) {
             <ChefHat size={14} weight="fill" className="inline mr-1 -mt-0.5" /> Cook Together
           </Chip>
           <Chip active={isPotluck} onClick={() => setForm(f => ({ ...f, kind: "potluck" }))}>
-            <PuzzlePiece size={14} weight="fill" className="inline mr-1 -mt-0.5" /> Pumasi
+            <PuzzlePiece size={14} weight="fill" className="inline mr-1 -mt-0.5" /> Share
           </Chip>
           <Chip active={isShare} onClick={() => setForm(f => ({ ...f, kind: "share" }))}>
             <Heart size={14} weight="fill" className="inline mr-1 -mt-0.5" /> Share
@@ -28,14 +28,14 @@ export default function HomemealForm({ form, setForm, editMode, showErrors }) {
 
       <FormField label="Title *">
         <InputWithCounter
-          placeholder={isCook ? "What are we cooking together?" : isPotluck ? "What's the potluck theme?" : "What are you sharing?"}
+          placeholder={isCook ? "What are we cooking together?" : isPotluck ? "What are you sharing?" : "What are you giving away?"}
           value={form.title} maxLength={50}
           onChange={(e) => setForm(f => ({ ...f, title: e.target.value }))} />
       </FormField>
 
       <FormField label="Description">
         <InputWithCounter as="textarea"
-          placeholder={isCook ? "Ingredients, what to bring, how we'll cook, etc." : isPotluck ? "Describe what each person should bring" : "Brief description"}
+          placeholder={isCook ? "Ingredients, what to bring, how we'll cook, etc." : isPotluck ? "What you're sharing and how to pick up" : "Brief description"}
           value={form.description} maxLength={300}
           onChange={(e) => setForm(f => ({ ...f, description: e.target.value }))} />
       </FormField>
@@ -56,7 +56,7 @@ export default function HomemealForm({ form, setForm, editMode, showErrors }) {
           onChange={(v) => setForm(f => ({ ...f, shareAt: v }))} />
       </FormField>
 
-      {/* Estimated ingredient cost — Cook Together / Pumasi only */}
+      {/* Estimated ingredient cost — Cook Together / Potluck only */}
       {!isShare && (
         <FormField label="Estimated ingredient cost">
           <InputWithCounter

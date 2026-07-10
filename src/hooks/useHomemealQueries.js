@@ -1,13 +1,12 @@
-// TODO: replace with mock
-// Dead imports removed: fetchHomemeals, createHomemeal, updateHomemeal, joinHomemeal, leaveHomemeal from "../lib/api/homemeals"
+import { mockHomemeals } from "../mocks/data";
 
 export function useHomemealsInfinite(cityId, filter) {
-  return { data: { pages: [] }, isLoading: false, isFetchingNextPage: false, fetchNextPage: () => {}, hasNextPage: false };
+  let filtered = mockHomemeals.filter((h) => h.city_id === cityId);
+  if (filter && filter !== "all") filtered = filtered.filter((h) => h.kind === filter);
+  return { data: { pages: [filtered] }, isLoading: false, isFetchingNextPage: false, fetchNextPage: () => {}, hasNextPage: false };
 }
 
-export function invalidateHomemeals() {
-  // TODO: replace with mock
-}
+export function invalidateHomemeals() {}
 
 export function useCreateHomemeal() {
   return { mutateAsync: async () => {}, isPending: false };

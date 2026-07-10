@@ -12,32 +12,19 @@ import Card from "../components/Card";
 import AlertBanner from "../components/AlertBanner";
 import symbol from "../assets/symbol.svg";
 
-const COUNTRIES = [
-  { value: "NZ", label: "🇳🇿 New Zealand" },
-  { value: "AU", label: "🇦🇺 Australia" },
-];
 
 export default function CitySelectPage() {
   const { user, fetchProfile } = useAuth();
   const { data: cities = [], isLoading: loading } = useCities();
-  const [country, setCountry] = useState(null);
   const [selected, setSelected] = useState(null);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
   const [showRequest, setShowRequest] = useState(false);
   const [alert, setAlert] = useState({ open: false, type: "success", message: "" });
-  const [requestCountry, setRequestCountry] = useState(null);
   const [requestName, setRequestName] = useState("");
   const [requested, setRequested] = useState(false);
 
-  function handleCountryChange(val) {
-    setCountry(val);
-    setSelected(null);
-  }
-
-  const filteredCities = country
-    ? cities.filter((c) => c.country === country && !c.is_demo)
-    : [];
+  const filteredCities = cities.filter((c) => !c.is_demo);
 
   const cityOptions = filteredCities.map((c) => ({
     value: c.id,
@@ -58,11 +45,10 @@ export default function CitySelectPage() {
   }
 
   async function handleRequest() {
-    if (!requestName.trim() || !requestCountry || !user) return;
+    if (!requestName.trim() || !user) return;
     try {
-      await requestCity(user.id, requestName.trim(), requestCountry);
+      await requestCity(user.id, requestName.trim());
       setRequested(true);
-      setRequestCountry(null);
       setRequestName("");
     } catch (e) {
       setError("Something went wrong while submitting your request.");
@@ -89,17 +75,10 @@ export default function CitySelectPage() {
         ) : (
           <div className="space-y-3 mb-4">
             <Dropdown
-              value={country}
-              onChange={handleCountryChange}
-              options={COUNTRIES}
-              placeholder="Select your country"
-            />
-            <Dropdown
               value={selected}
               onChange={setSelected}
               options={cityOptions}
               placeholder="Select your city"
-              disabled={!country}
             />
           </div>
         )}
@@ -126,7 +105,7 @@ export default function CitySelectPage() {
               </p>
               <button
                 onClick={async () => {
-                  const slug = selectedCity ? `/${(selectedCity.country || "nz").toLowerCase()}/${selectedCity.name.toLowerCase().replace(/\s+/g, "-")}/homemeal` : "";
+                  const slug = selectedCity ? `/${selectedCity.name.toLowerCase().replace(/\s+/g, "-")}/homemeal` : "";
                   const url = `${window.location.origin}${slug}`;
                   try {
                     await navigator.clipboard.writeText(url);
@@ -153,13 +132,13 @@ export default function CitySelectPage() {
       {/* City request modal */}
       <Modal
         open={showRequest}
-        onClose={() => { setShowRequest(false); setRequested(false); setRequestCountry(null); setRequestName(""); }}
+        onClose={() => { setShowRequest(false); setRequested(false); setRequestName(""); }}
         title="My city isn't listed"
         action={
           !requested && (
             <button
               onClick={handleRequest}
-              disabled={!requestName.trim() || !requestCountry}
+              disabled={!requestName.trim()}
               className="w-full py-3.5 rounded-xl bg-ink text-white font-bold text-title disabled:opacity-50"
             >
               Submit request
@@ -172,20 +151,10 @@ export default function CitySelectPage() {
         ) : (
           <div className="space-y-3 pb-4">
             <div>
-              <p className="text-body-sm text-ink-soft mb-1.5">Country</p>
-              <input
-                className={inputClass}
-                placeholder="e.g. Canada"
-                value={requestCountry || ""}
-                onChange={(e) => setRequestCountry(e.target.value)}
-                maxLength={50}
-              />
-            </div>
-            <div>
               <p className="text-body-sm text-ink-soft mb-1.5">City</p>
               <input
                 className={inputClass}
-                placeholder="e.g. Vancouver"
+                placeholder="e.g. Tauranga"
                 value={requestName}
                 onChange={(e) => setRequestName(e.target.value)}
                 maxLength={50}

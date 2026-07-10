@@ -1,31 +1,36 @@
 import { createContext, useContext, useState } from "react";
-
-// TODO: replace with real auth provider (Supabase removed)
+import { DEMO_USER_ID, mockProfiles, mockCities } from "../mocks/data";
 
 const AuthContext = createContext(null);
 
+const demoProfile = (() => {
+  const p = mockProfiles.find((p) => p.id === DEMO_USER_ID);
+  if (!p) return null;
+  const city = mockCities.find((c) => c.id === p.city_id);
+  return { ...p, cities: city ? { id: city.id, name: city.name, country: city.country } : null };
+})();
+
 export function AuthProvider({ children }) {
-  const [user] = useState(null);
-  const [profile] = useState(null);
+  const [user] = useState({ id: DEMO_USER_ID });
+  const [profile] = useState(demoProfile);
   const [guest, setGuest] = useState(false);
   const [viewCityId, setViewCityId] = useState(null);
   const [viewCitySlug, setViewCitySlug] = useState("");
-  const [hasUnread] = useState(false);
+  const [hasUnread] = useState(true);
 
-  const basePath = viewCitySlug || "";
+  const basePath = viewCitySlug || (profile?.cities
+    ? `/${profile.cities.name.toLowerCase().replace(/\s+/g, "-")}`
+    : "");
 
   function signUp() {
-    // TODO: replace with mock data
     return Promise.resolve({ data: null, error: { message: "Auth not configured" } });
   }
 
   function signIn() {
-    // TODO: replace with mock data
     return Promise.resolve({ data: null, error: { message: "Auth not configured" } });
   }
 
   function signOut() {
-    // TODO: replace with mock data
     return Promise.resolve();
   }
 
@@ -42,13 +47,10 @@ export function AuthProvider({ children }) {
   }
 
   function fetchProfile() {
-    // TODO: replace with mock data
     return Promise.resolve();
   }
 
-  function checkUnread() {
-    // TODO: replace with mock data
-  }
+  function checkUnread() {}
 
   return (
     <AuthContext.Provider value={{

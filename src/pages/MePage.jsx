@@ -26,10 +26,6 @@ const BADGE_DESCS = {
   foodie: () => "Your food pick reached 100 likes",
 };
 
-const COUNTRIES = [
-  { value: "NZ", label: "🇳🇿 New Zealand" },
-  { value: "AU", label: "🇦🇺 Australia" },
-];
 
 export default function MePage() {
   usePageTitle("Profile — sharing Jeong");
@@ -44,7 +40,6 @@ export default function MePage() {
 
   // City/suburb
   const { data: cities = [] } = useCities();
-  const [country, setCountry] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
   const [selectedSuburb, setSelectedSuburb] = useState(null);
   const [showLocation, setShowLocation] = useState(false);
@@ -55,8 +50,6 @@ export default function MePage() {
 
   useEffect(() => {
     if (profile && cities.length > 0) {
-      const currentCity = cities.find((c) => c.id === profile.city_id);
-      setCountry(currentCity?.country || null);
       setSelectedCity(profile.city_id || null);
       setSelectedSuburb(profile.suburb_id || null);
     }
@@ -109,8 +102,7 @@ export default function MePage() {
     .filter((b) => b.city_id !== profile.city_id)
     .map((b) => ({ type: b.badge_type, ...BADGE_META[b.badge_type], cityName: b.city?.name || "?", desc: BADGE_DESCS[b.badge_type](), got: true }));
 
-  const filteredCities = country ? cities.filter((c) => c.country === country && !c.is_demo) : [];
-  const cityOptions = filteredCities.map((c) => ({ value: c.id, label: `${c.name}${c.name_ko ? ` (${c.name_ko})` : ""}` }));
+  const cityOptions = cities.filter((c) => !c.is_demo).map((c) => ({ value: c.id, label: c.name }));
 
   return (
     <div className="px-4 pt-24 md:py-16 pb-40">
@@ -185,14 +177,12 @@ export default function MePage() {
               </button>
             </div>
             {!showLocation && (
-              <div className="text-body font-semibold text-ink">{suburbName ? `${suburbName}, ` : ""}{cityName}, {country === "NZ" ? "New Zealand" : "Australia"}</div>
+              <div className="text-body font-semibold text-ink">{suburbName ? `${suburbName}, ` : ""}{cityName}</div>
             )}
             {showLocation && (
               <div className="space-y-2.5 mt-1">
-                <Dropdown value={country} onChange={(v) => { setCountry(v); setSelectedCity(null); }}
-                  options={COUNTRIES} placeholder="Country" />
                 <Dropdown value={selectedCity} onChange={handleCityChange}
-                  options={cityOptions} placeholder="City" disabled={!country} />
+                  options={cityOptions} placeholder="City" />
                 <Dropdown value={selectedSuburb} onChange={handleSuburbChange}
                   options={[{ value: "", label: "None" }, ...suburbs.map((s) => ({ value: s.id, label: s.name }))]}
                   placeholder="Suburb" disabled={!selectedCity} />

@@ -1,4 +1,4 @@
-# Dajeong (다정)
+# community-case-study
 
 > A neighborhood community platform where Korean immigrants share meals, shop together, and build trust through Jeong (情).
 

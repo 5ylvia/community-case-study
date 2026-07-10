@@ -18,7 +18,7 @@ export default function TermsPage() {
           <section>
             <h2 className="text-title font-bold text-ink mb-2">3. Prohibited Activities</h2>
             <ul className="list-disc pl-5 space-y-1">
-              <li><b>Selling or trading food for profit is prohibited.</b> Dajeong is a platform for sharing, Pumasi (potluck-style exchange), and group buying — not for commercial food sales. Providing food in exchange for cash, bank transfers, or any equivalent payment is not allowed. Under the NZ Food Act 2014, food provided for sale requires separate registration, which is the individual's responsibility.</li>
+              <li><b>Selling or trading food for profit is prohibited.</b> Dajeong is a platform for sharing, potluck exchange, and group buying — not for commercial food sales. Providing food in exchange for cash, bank transfers, or any equivalent payment is not allowed. Under the NZ Food Act 2014, food provided for sale requires separate registration, which is the individual's responsibility.</li>
               <li>Posting false information, spam, harassment, or discriminatory language</li>
               <li>Unauthorized collection or sharing of others' personal information</li>
               <li>Using the service for commercial advertising or promotion</li>

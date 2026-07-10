@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient";
 import { AuthProvider, useAuth } from "./lib/auth";
+import { mockCities } from "./mocks/data";
 import Header from "./components/Header";
 import TabBar from "./components/TabBar";
 import TogetherPage from "./pages/TogetherPage";
@@ -25,9 +26,8 @@ function AppContent() {
 
   // Auto guest entry when accessing a city URL directly
   if (!user && !guest) {
-    const match = location.pathname.match(/^\/([a-z]+)\/([a-z-]+)\//);
+    const match = location.pathname.match(/^\/([a-z-]+)\//);
     if (match) {
-      // Find city from URL and enter as guest — call cities API directly without useCities
       return <AutoGuest path={location.pathname} enterGuest={enterGuest} />;
     }
     return (
@@ -70,12 +70,12 @@ function AppContent() {
       <Header />
       <div className="max-w-120 mx-auto">
         <Routes>
-          <Route path="/:country/:city/homemeal" element={<HomemealPage />} />
-          <Route path="/:country/:city/homemeal/:id" element={<DetailPage />} />
-          <Route path="/:country/:city/together" element={<TogetherPage />} />
-          <Route path="/:country/:city/together/:id" element={<DetailPage />} />
-          <Route path="/:country/:city/reco" element={<RecoPage />} />
-          <Route path="/:country/:city/reco/:id" element={<DetailPage />} />
+          <Route path="/:city/homemeal" element={<HomemealPage />} />
+          <Route path="/:city/homemeal/:id" element={<DetailPage />} />
+          <Route path="/:city/together" element={<TogetherPage />} />
+          <Route path="/:city/together/:id" element={<DetailPage />} />
+          <Route path="/:city/reco" element={<RecoPage />} />
+          <Route path="/:city/reco/:id" element={<DetailPage />} />
           <Route path="/me" element={guest ? <Navigate to="/login" replace /> : <MePage />} />
           <Route path="/notifications" element={guest ? <Navigate to="/login" replace /> : <NotificationsPage onBack={() => window.history.back()} />} />
           <Route path="/terms" element={<TermsPage />} />
@@ -93,23 +93,16 @@ function AutoGuest({ path, enterGuest }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const match = path.match(/^\/([a-z]+)\/([a-z-]+)\//);
+    const match = path.match(/^\/([a-z-]+)\//);
     if (!match) { setLoading(false); return; }
-    const [, country, citySlug] = match;
+    const [, citySlug] = match;
 
-    // TODO: replace with mock
-    // import("./lib/api/profile").then(({ fetchCities }) => {
-    //   fetchCities().then((cities) => {
-    //     const city = cities.find((c) =>
-    //       c.country.toLowerCase() === country &&
-    //       c.name.toLowerCase().replace(/\s+/g, "-") === citySlug
-    //     );
-    //     if (city) {
-    //       enterGuest(city.id, `/${country}/${citySlug}`);
-    //     }
-    //     setLoading(false);
-    //   });
-    // });
+    const city = mockCities.find((c) =>
+      c.name.toLowerCase().replace(/\s+/g, "-") === citySlug
+    );
+    if (city) {
+      enterGuest(city.id, `/${citySlug}`);
+    }
     setLoading(false);
   }, []);
 

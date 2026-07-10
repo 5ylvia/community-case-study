@@ -1,8 +1,9 @@
-// TODO: replace with mock
-// Dead imports removed: fetchMeetings, createMeeting, updateMeeting, joinMeeting, leaveMeeting from "../lib/api/meetings"
+import { mockMeetings } from "../mocks/data";
 
 export function useMeetingsInfinite(cityId, filter) {
-  return { data: { pages: [] }, isLoading: false, isFetchingNextPage: false, fetchNextPage: () => {}, hasNextPage: false };
+  let filtered = mockMeetings.filter((m) => m.city_id === cityId);
+  if (filter && filter !== "all") filtered = filtered.filter((m) => m.kind === filter);
+  return { data: { pages: [filtered] }, isLoading: false, isFetchingNextPage: false, fetchNextPage: () => {}, hasNextPage: false };
 }
 
 export function useCreateMeeting() {

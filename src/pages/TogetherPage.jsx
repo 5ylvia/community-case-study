@@ -246,12 +246,12 @@ export default function TogetherPage() {
           </Card>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5">
             {[
-              { kind: "buy", title: "Korean grocery group order", desc: "Ship from Korea together", icon: <Shrimp size={28} /> },
-              { kind: "go", title: "No more eating alone", desc: "BBQ, anyone?", icon: <ForkKnife size={28} /> },
-              { kind: "go", title: "Pizza and pasta", desc: "Big portions, let's share", icon: <Pizza size={28} /> },
-              { kind: "go", title: "Dim sum", desc: "More variety together", icon: <BowlSteam size={28} /> },
-              { kind: "buy", title: "Grocery buddy", desc: "Buy in bulk, split it up", icon: <ShoppingCart size={28} /> },
-              { kind: "go", title: "Deal hunt", desc: "First Table together?", icon: <Bird size={28} /> },
+              { kind: "go", title: "Korean BBQ for 4", desc: "Min 2 servings — need company!", icon: <ForkKnife size={28} /> },
+              { kind: "buy", title: "Costco bulk split", desc: "Gochujang, sesame oil, rice", icon: <ShoppingCart size={28} /> },
+              { kind: "go", title: "Brunch crew", desc: "That café is awkward alone", icon: <BowlSteam size={28} /> },
+              { kind: "buy", title: "Korean mart group order", desc: "Split shipping from Korea", icon: <Shrimp size={28} /> },
+              { kind: "go", title: "Hot pot night", desc: "More people = more dishes to try", icon: <Pizza size={28} /> },
+              { kind: "buy", title: "Rice bag split", desc: "20kg is too much for one!", icon: <Bird size={28} /> },
             ].map((ex, i) => (
               <div key={i}
                 className="py-6 px-3 rounded-2xl border-2 border-dashed border-ink/15 cursor-pointer hover:border-ink/30 hover:bg-card/50 hover:-translate-y-0.5 hover:shadow-md transition-all text-center"

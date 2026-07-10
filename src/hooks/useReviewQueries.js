@@ -1,5 +1,4 @@
-// TODO: replace with mock
-// Dead imports removed: getMyReviews, submitReview from "../lib/api/reviews"
+import { mockReviews } from "../mocks/data";
 
 export function useMyReviews(meetingId, homemealId, userId) {
   return { data: [], isLoading: false };

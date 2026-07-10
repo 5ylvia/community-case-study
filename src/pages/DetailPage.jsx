@@ -10,6 +10,7 @@ import { formatDate } from "../utils/formatDate";
 import { safeHref } from "../utils/validateUrl";
 import usePageTitle from "../hooks/usePageTitle";
 import { useAuth } from "../lib/auth";
+import { mockHomemeals, mockMeetings, mockRecos } from "../mocks/data";
 import AlertBanner from "../components/AlertBanner";
 import LoginModal from "../components/LoginModal";
 import ConfirmModal from "../components/ConfirmModal";
@@ -36,9 +37,20 @@ export default function DetailPage() {
   const field = isUuid ? "id" : "slug";
 
   useEffect(() => {
-    // TODO: replace with mock data
+    // Look up item by slug or id from mock data
+    const lookup = (arr) => arr.find((x) => x[field] === id) || null;
+
+    let found = lookup(mockHomemeals);
+    if (found) { setItem(found); setType("homemeal"); setSecureAddress("123 Example Street, Mt Albert"); setLoading(false); return; }
+
+    found = lookup(mockMeetings);
+    if (found) { setItem(found); setType("meeting"); setLoading(false); return; }
+
+    found = lookup(mockRecos);
+    if (found) { setItem(found); setType("reco"); setLoading(false); return; }
+
     setLoading(false);
-  }, [id]);
+  }, [id, field]);
 
   if (loading) return <div className="text-center text-body text-ink-soft py-12">Loading...</div>;
   if (!item) return <NotFoundPage />;
@@ -201,7 +213,7 @@ export default function DetailPage() {
             ) : (
               <button onClick={handleJoin} className={`px-4 py-2.5 rounded-lg text-white font-bold text-body-sm cursor-pointer hover:-translate-y-0.5 hover:shadow-md transition-all ${isFull ? "bg-ink-soft" : "bg-ink"}`}>
                 {isFull ? "Join waitlist"
-                  : isHomemeal ? (item.kind === "cook" ? "Cook together" : item.kind === "potluck" ? "Join Pumasi" : "Request share")
+                  : isHomemeal ? (item.kind === "cook" ? "Cook together" : item.kind === "potluck" ? "Join share" : "Claim free")
                   : (item.kind === "go" ? "Eat together" : "Buy together")}
               </button>
             )

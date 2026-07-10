@@ -27,8 +27,8 @@ import { isUrlLike, isValidMapUrl } from "../utils/validateUrl";
 const kindFilters = [
   { key: "all", label: "All" },
   { key: "cook", label: "Cook Together" },
-  { key: "potluck", label: "Pumasi" },
-  { key: "share", label: "Share" },
+  { key: "potluck", label: "Share" },
+  { key: "share", label: "Free" },
 ];
 
 export default function HomemealPage() {
@@ -110,7 +110,7 @@ export default function HomemealPage() {
 
     // Cancel
     if (myStatus) {
-      const actionLabel = m.kind === "cook" ? "Cook Together" : m.kind === "potluck" ? "Pumasi" : "Share";
+      const actionLabel = m.kind === "cook" ? "Cook Together" : m.kind === "potluck" ? "Share" : "Free";
       const hoursLeft = Math.floor((new Date(m.share_at).getTime() - Date.now()) / (1000 * 60 * 60));
       const hasWaitlist = m.claims?.some(c => c.status === "waitlist");
       const penaltyWarn = myStatus === "joined" && hoursLeft < 24 && !hasWaitlist ? "\n⚠️ Cancelling within 24 hours will cost 1 Ember point." : "";
@@ -275,12 +275,12 @@ export default function HomemealPage() {
           </Card>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5">
             {[
-              { kind: "cook", dish: "Dumpling party", desc: "Let's make all kinds together", icon: <BowlSteam size={28} /> },
-              { kind: "potluck", dish: "Side dish Pumasi", desc: "Each bring one, swap them all", icon: <Rows size={28} /> },
-              { kind: "share", dish: "Cookies", desc: "Made too many — sharing!", icon: <Cookie size={28} /> },
-              { kind: "cook", dish: "Kimchi making day", desc: "Too hard to do alone, right?", icon: <Pepper size={28} /> },
-              { kind: "cook", dish: "Meal prep meetup", desc: "Prep a whole week together", icon: <ChefHat size={28} /> },
-              { kind: "share", dish: "Perilla leaves", desc: "Pick some from my garden!", icon: <Leaf size={28} /> },
+              { kind: "cook", dish: "Dumpling folding day", desc: "Fold 200 together, split the haul", icon: <BowlSteam size={28} /> },
+              { kind: "potluck", dish: "Banchan swap", desc: "Bring one side, take home five", icon: <Rows size={28} /> },
+              { kind: "share", dish: "Too much jjigae!", desc: "Big pot, small appetite — come grab some", icon: <Cookie size={28} /> },
+              { kind: "cook", dish: "Kimchi-making party", desc: "20 cabbages, many hands", icon: <Pepper size={28} /> },
+              { kind: "cook", dish: "Sunday meal prep", desc: "Cook a week's lunches together", icon: <ChefHat size={28} /> },
+              { kind: "share", dish: "Garden harvest share", desc: "Perilla, chilli, sesame — come pick!", icon: <Leaf size={28} /> },
             ].map((ex, i) => (
               <div key={i}
                 className="py-6 px-3 rounded-2xl border-2 border-dashed border-ink/15 cursor-pointer hover:border-ink/30 hover:bg-card/50 hover:-translate-y-0.5 hover:shadow-md transition-all text-center"
@@ -397,7 +397,7 @@ export default function HomemealPage() {
           }`}
           disabled={!editItem && (!form.title || !form.address || !form.suburbId || !form.shareAt)}
           onClick={handleSave}>
-          {editItem ? "Save" : form.kind === "cook" ? "Let's cook together" : form.kind === "potluck" ? "Start Pumasi" : "Share it"}
+          {editItem ? "Save" : form.kind === "cook" ? "Let's cook together" : form.kind === "potluck" ? "Start sharing" : "Give it away"}
         </button>}>
         <HomemealForm form={form} setForm={setForm} editMode={!!editItem} showErrors={!editItem} />
       </Modal>

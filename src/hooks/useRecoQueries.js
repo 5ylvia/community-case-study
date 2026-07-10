@@ -1,8 +1,9 @@
-// TODO: replace with mock
-// Dead imports removed: fetchRecos, createReco, updateReco, toggleAgree from "../lib/api/recos"
+import { mockRecos } from "../mocks/data";
 
 export function useRecosInfinite(cityId, category) {
-  return { data: { pages: [] }, isLoading: false, isFetchingNextPage: false, fetchNextPage: () => {}, hasNextPage: false };
+  let filtered = mockRecos.filter((r) => r.city_id === cityId);
+  if (category && category !== "all") filtered = filtered.filter((r) => r.category === category);
+  return { data: { pages: [filtered] }, isLoading: false, isFetchingNextPage: false, fetchNextPage: () => {}, hasNextPage: false };
 }
 
 export function useCreateReco() {

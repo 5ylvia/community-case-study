@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { MapPin, Bell, CaretDown, ShareNetwork, Heart } from "./icons";
 import { useAuth } from "../lib/auth";
-// TODO: replace with mock
-const fetchCities = async () => [];
+import { mockCities } from "../mocks/data";
+const fetchCities = async () => mockCities;
 const selectCity = async () => {};
 import Modal from "./Modal";
 import LoginModal from "./LoginModal";
@@ -24,17 +24,16 @@ export default function Header() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [alert, setAlert] = useState({ open: false, type: "success", message: "" });
   const [allCities, setAllCities] = useState([]);
-  const [modalCountry, setModalCountry] = useState(null);
 
   const myCityId = profile?.city_id;
   const myCityName = profile?.cities?.name || "Select city";
   const profileCitySlug = profile?.cities
-    ? `/${(profile.cities.country || "nz").toLowerCase()}/${profile.cities.name.toLowerCase().replace(/\s+/g, "-")}`
+    ? `/${profile.cities.name.toLowerCase().replace(/\s+/g, "-")}`
     : "";
 
   // viewing city name
   const viewCity = viewCityId ? allCities.find((c) => c.id === viewCityId) : null;
-  const cities = modalCountry ? allCities.filter((c) => c.country === modalCountry) : allCities;
+  const cities = allCities;
   const displayName = viewCity ? viewCity.name : myCityName;
   const isViewing = guest || (viewCityId && viewCityId !== myCityId);
 
@@ -53,13 +52,6 @@ export default function Header() {
     if (profile || guest) {
       fetchCities().then((all) => {
         setAllCities(all);
-        // initial country setup
-        if (profile) {
-          setModalCountry(profile.cities?.country || "NZ");
-        } else if (guest && viewCityId) {
-          const guestCity = all.find((c) => c.id === viewCityId);
-          setModalCountry(guestCity?.country || "NZ");
-        }
       }).catch(console.error);
     }
   }, [profile, guest]);
@@ -74,7 +66,7 @@ export default function Header() {
       setViewCitySlug("");
       navigate(`${profileCitySlug}/homemeal`);
     } else {
-      const slug = `/${(c.country || "nz").toLowerCase()}/${c.name.toLowerCase().replace(/\s+/g, "-")}`;
+      const slug = `/${c.name.toLowerCase().replace(/\s+/g, "-")}`;
       setViewCityId(c.id);
       setViewCitySlug(slug);
       navigate(`${slug}/homemeal`);
@@ -159,22 +151,6 @@ export default function Header() {
         }
       >
         <div className="pb-2 space-y-1">
-          <div className="flex gap-2 mb-3">
-            {[
-              { code: "NZ", label: "🇳🇿 NZ" },
-              { code: "AU", label: "🇦🇺 AU" },
-            ].map(({ code, label }) => (
-              <button
-                key={code}
-                onClick={() => setModalCountry(code)}
-                className={`px-3 py-1.5 rounded-lg text-body-sm font-semibold cursor-pointer transition-colors ${
-                  modalCountry === code ? "bg-ink text-white" : "bg-ink/6 text-ink-soft hover:bg-ink/10"
-                }`}
-              >
-                {label}
-              </button>
-            ))}
-          </div>
           {cities.length === 0 && (
             <div className="text-center text-body text-ink-soft py-6">Loading...</div>
           )}
@@ -211,7 +187,7 @@ export default function Header() {
                           setViewCityId(null);
                           setViewCitySlug("");
                           setShowCities(false);
-                          const slug = `/${(c.country || "nz").toLowerCase()}/${c.name.toLowerCase().replace(/\s+/g, "-")}`;
+                          const slug = `/${c.name.toLowerCase().replace(/\s+/g, "-")}`;
                           navigate(`${slug}/homemeal`);
                         }}
                         className="text-ink font-semibold underline cursor-pointer"
