@@ -81,7 +81,7 @@ Defined via Tailwind `@theme` in `index.css`:
 |-------|------|----------|-------------|
 | 1 | CookingPot | **Home Meal** (default landing) | Cook together / Potluck / Share |
 | 2 | Handshake | **Together** | Eat together / Buy together |
-| 3 | ForkKnife | **Food Picks** | Share recommendations |
+| 3 | ForkKnife | **Local Eats** | Share recommendations |
 | 4 | User | **Profile** | Ember + Rankings + Badges + Settings |
 
 - Mobile: bottom tab bar with 4 tabs. Desktop (md+): left sidebar (flame symbol + tabs + Bell at bottom).
@@ -103,17 +103,17 @@ Defined via Tailwind `@theme` in `index.css`:
 
 ### 4-1. Home Meal (homemeal) — Default Tab
 
-- Type filter: All / Cook together (cook) / Potluck (potluck) / Share (share). Only types with data shown; if only 1 type, hide chips.
+- Type filter: All / Cook together (cook) / Share (potluck) / Free (share). Only types with data shown; if only 1 type, hide chips.
   - **Cook together** (ChefHat): Group cooking (dumplings, kimchi-making, BBQ, etc.).
-  - **Potluck** (PuzzlePiece): Each person brings a dish to swap.
-  - **Share** (Heart): Free sharing.
+  - **Share** (PuzzlePiece): Each person brings a dish to swap.
+  - **Free** (Gift): Free giveaway.
 - **Card layout:**
   - Row 1: Date / comment count (ChatCircle + N, right) | Host name + Ember (right)
   - Row 2: Host avatar (`bg-ember-deep`) + participant avatars (max 3, `bg-ink-soft`, +N) + count | Status badge (right)
   - Avatar overlap: `-space-x-1.5`, higher z-index on left.
   - If suburbName is empty string, don't render MapPin + location.
 - **No action buttons on cards** — status badges only (Joined/Waitlisted/My group). Join/cancel on DetailPage only.
-- **Action buttons (DetailPage):** "Let's cook together" (cook) / "Start potluck" (potluck) / "I'll share" (share) / When full: "Clock Join waitlist". After joining: "Check Joined" / "Hourglass Waitlisted" (cancel via ConfirmModal).
+- **Action buttons (DetailPage):** "Let's cook together" (cook) / "Let's share" (potluck) / "Get it free" (share) / When full: "Clock Join waitlist". After joining: "Check Joined" / "Hourglass Waitlisted" (cancel via ConfirmModal).
 - **Join confirmation AlertBanner:** For Home Meals with address: "You've joined! Bento-box The exact address will be shared 24 hours before the meetup".
 - **Capacity display (Home Meal / Together / MyActivity shared):**
   - capacity null (unlimited): "N joined".
@@ -150,7 +150,7 @@ Defined via Tailwind `@theme` in `index.css`:
   5. **Dim Sum** (ForkKnife, "Sharing variety")
   6. **Grocery Buddy** (ShoppingCart, "Split purchase")
 
-### 4-3. Food Picks (reco)
+### 4-3. Local Eats (reco)
 
 - Category filter: Korean / Asian / Cafe & Brunch / Western / Dessert & Bakery / Other. Only categories with data shown; if only 1, hide chips.
 - **Card layout:**
@@ -161,7 +161,7 @@ Defined via Tailwind `@theme` in `index.css`:
   - Author sees edit (Pencil) icon at top right.
 - **Unlike:** Re-click to undo immediately (no ConfirmModal). AlertBanner `"Like removed."`.
 - **agree_count:** Auto-synced via `sync_agree_count` DB trigger (no manual update needed).
-- **Popular Food Picks (top 3):** Top of feed "Yellow-heart Our neighborhood's top Food Picks" (1+ agrees, cumulative top 3, yellow glow). Rest sorted by likes.
+- **Popular Local Eats (top 3):** Top of feed "Yellow-heart Our neighborhood's top Local Eats" (1+ agrees, cumulative top 3, yellow glow). Rest sorted by likes.
 - FAB: Mobile full-width bar "Recommend a spot" / Desktop bottom-right icon.
 - **Empty feed:** Only hide filter chips (no example cards).
 
@@ -191,17 +191,17 @@ FAB click -> create form Modal (mobile = bottom sheet, desktop = centered modal)
 **(B) Create Home Meal** — `homemeals`
 > Modal title: **"Home meal together?"** / Subtitle: "When there's too much, too hard, or too boring — do it together"
 
-1. **Type** (required): Chef-hat Cook together (cook) / Puzzle Potluck (potluck) / Gift Share (share)
+1. **Type** (required): Chef-hat Cook together (cook) / Puzzle Share (potluck) / Gift Free (share)
 2. **Title** (required, 50 chars)
 3. **Description** (required)
 4. **Suburb** (required, dropdown, auto-fills). **Address** (optional): Only revealed to confirmed attendees within 24h. Before: "Pin Detailed location will be revealed 24 hours before".
 5. **Date & time** (required)
-6. **Estimated ingredient cost** (optional, cook/potluck only)
+6. **Estimated ingredient cost** (optional, cook/share only)
 7. **Capacity**: "Set a limit" checkbox -> `Min [ N ] ~ Max [ N ] people`. Unchecked = unlimited.
 
 Fixed notice: "(no buying or selling)".
 
-**(C) Create Food Pick** — `recos`
+**(C) Create Local Eats** — `recos`
 > Modal title: **"Share your favorite spot?"** / Subtitle: "Even one recommendation can help someone"
 
 1. **Restaurant name** (required)
@@ -218,7 +218,7 @@ Fixed notice: "(no buying or selling)".
 - **Duplicate submission prevention:** `isPending` check blocks resubmission.
 - **Input length limits:** Title 50 chars, description 300 chars, review 100 chars, suburb 30 chars. Counter shown in input, blocked by maxLength.
 - **Date format:** `Sat, Jun 28 6:30pm` (CalendarBlank icon). `formatDate` utility.
-- **Editing:** Together/Home Meal: all fields. Food Picks: review, Google Maps link, suburb only (name/category disabled).
+- **Editing:** Together/Home Meal: all fields. Local Eats: review, Google Maps link, suburb only (name/category disabled).
 
 ---
 
@@ -243,7 +243,7 @@ Fixed notice: "(no buying or selling)".
 - Horizontal 3-column grid. Unearned: `opacity-45 grayscale`.
 - Medal **[City] Pioneer** — First person to complete a meetup in that city. Unified wording: "Completed / Completed by".
 - Heart **[City] Sharer** — 5 Home Meal shares.
-- Fork-knife **[City] Foodie** — One of your Food Picks reaches 100 likes.
+- Fork-knife **[City] Foodie** — One of your Local Eats reaches 100 likes.
 - "Current city badges" + "Other city badges" section split.
 
 **Profile Page Structure:**
@@ -323,7 +323,7 @@ Fixed notice: "(no buying or selling)".
 |-------|----------|
 | Medal [City] Pioneer | First completed meetup in that city (when cities.pioneer_id is null) |
 | Heart [City] Sharer | 5 Home Meal shares |
-| Fork-knife [City] Foodie | One of your Food Picks reaches 100 likes |
+| Fork-knife [City] Foodie | One of your Local Eats reaches 100 likes |
 
 ---
 
@@ -368,7 +368,7 @@ Users select a city on sign-up to join that city's pool. Feed shows only that ci
 - **City active check:** `c.member_count > 0 || c.id === myCityId` condition (cities.active column unused).
 - **First resident message:** "Fire You could be [city]'s first Ember. It gets warmer with friends." + share button. Share link: `https://domain/:country/:city/homemeal`.
 - **Header Pin City Caret = view switch** (doesn't change membership). **Profile > city change = actual move**.
-- **On city move:** Ember and badges carry over. Rankings start fresh in new city. Events and Food Picks stay in original city.
+- **On city move:** Ember and badges carry over. Rankings start fresh in new city. Events and Local Eats stay in original city.
 - **is_demo=true cities:** Excluded from move/city selection. Still visible in browse/feed.
 
 ### 7-2. Guest Browse Mode
@@ -474,12 +474,12 @@ activity_logs — id, user_id, action(text), target_type(text), target_id(text),
 2. **Home Meals are not for buying/selling/trading** — NZ Food Act compliance.
 3. **Minimal images** — Google Maps links, Phosphor icons, text-driven.
 4. **Platform is a tool** — users host everything. No operator involvement needed.
-5. **Keep it simple** — MVP: Home Meal + Together + Food Picks.
+5. **Keep it simple** — MVP: Home Meal + Together + Local Eats.
 6. **Security:**
    - XSS prevention: React auto-escaping + `safeHref()` (http/https only).
    - Input length: DB CHECK constraints.
    - Home Meal address protection: `get_homemeal_address` RPC.
-   - Enhanced RLS: comment edit/delete owner-only, event edit host-only, Food Pick edit author-only, reviews insert self or system.
+   - Enhanced RLS: comment edit/delete owner-only, event edit host-only, Local Eats edit author-only, reviews insert self or system.
    - Core action logging: `activity_logs` table + `logActivity` utility.
 
 ---
@@ -487,7 +487,7 @@ activity_logs — id, user_id, action(text), target_type(text), target_id(text),
 ## 10. Development Priority
 
 **Completed features:**
-- Home Meal / Together / Food Picks / Profile — full functionality
+- Home Meal / Together / Local Eats / Profile — full functionality
 - Email sign-up/login
 - City selection/switching + pool isolation
 - Notification system

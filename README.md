@@ -15,16 +15,16 @@ Dajeong is a neighborhood community platform where Korean immigrants share meals
 
 ### Core Features
 
-- **Home Meal** — Cook together, exchange home-cooked dishes through Pumasi (품앗이, reciprocal sharing), or offer surplus food to neighbors nearby.
+- **Home Meal** — Cook together, share sides, or give away surplus food to neighbors nearby.
 - **Together** — Eat together at local restaurants or organize group buys for bulk groceries that are impractical to purchase alone.
-- **Food Picks** — Community-driven restaurant recommendations with likes — honest picks from people who share your palate.
+- **Local Eats** — Community-driven restaurant recommendations with likes — honest picks from people who share your palate.
 - **Ember (불씨)** — A trust and reputation system built on a fire metaphor. Positive interactions "add firewood" to your Ember 🔥; negative ones dim the flame. A 5-cell gauge shifts through red, orange, and gray states. Trust grows slowly and breaks quickly — by design.
 
 ### Badges
 
 - **Pioneer** — First resident to join a new city pool.
 - **Sharer** — Active contributor of Home Meal posts.
-- **Foodie** — Prolific reviewer on Food Picks.
+- **Foodie** — Prolific reviewer on Local Eats.
 
 ## Key Design Decisions
 

@@ -1,4 +1,4 @@
-import { ChefHat, PuzzlePiece, Heart } from "../icons";
+import { ChefHat, PuzzlePiece, Gift } from "../icons";
 import FormField, { inputClass, inputSmClass } from "../FormField";
 import InputWithCounter from "../InputWithCounter";
 import Chip from "../Chip";
@@ -21,7 +21,7 @@ export default function HomemealForm({ form, setForm, editMode, showErrors }) {
             <PuzzlePiece size={14} weight="fill" className="inline mr-1 -mt-0.5" /> Share
           </Chip>
           <Chip active={isShare} onClick={() => setForm(f => ({ ...f, kind: "share" }))}>
-            <Heart size={14} weight="fill" className="inline mr-1 -mt-0.5" /> Share
+            <Gift size={14} weight="fill" className="inline mr-1 -mt-0.5" /> Free
           </Chip>
         </div>
       </FormField>

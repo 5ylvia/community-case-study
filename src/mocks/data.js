@@ -996,7 +996,7 @@ export const mockMeetings = [
 ];
 
 // =============================================================================
-// RECOS (12 food picks — Auckland, Wellington, Christchurch)
+// RECOS (12 local eats — Auckland, Wellington, Christchurch)
 // =============================================================================
 export const mockRecos = [
   {
@@ -1033,7 +1033,7 @@ export const mockRecos = [
     id: "reco-2",
     slug: "daily-bread-cafe-d4e5f6",
     name: "Daily Bread Caf\u00e9",
-    category: "Cafe/Brunch",
+    category: "Cafe",
     city_id: "city-1",
     suburb_id: "sub-3",
     note: "Best flat white in Ponsonby, honestly. The vibe is so cozy and warm. I come here every weekend to read and decompress. The banana bread is worth it too.",
@@ -1136,7 +1136,7 @@ export const mockRecos = [
     id: "reco-6",
     slug: "cafe-hanuri-p7q8r9",
     name: "Caf\u00e9 Hanuri",
-    category: "Cafe/Brunch",
+    category: "Cafe",
     city_id: "city-1",
     suburb_id: "sub-3",
     note: "My favourite weekend brunch spot in Ponsonby. The sourdough bread is freshly baked and the coffee is consistently excellent. Gets busy after 10am though!",
@@ -1241,7 +1241,7 @@ export const mockRecos = [
     id: "reco-10",
     slug: "prefab-eatery-st3u6v",
     name: "Prefab Eatery",
-    category: "Cafe/Brunch",
+    category: "Cafe",
     city_id: "city-2",
     suburb_id: "sub-13",
     note: "Best brunch in Wellington. Try the eggs benedict — you won't regret it.",

@@ -17,10 +17,10 @@ import useLoginGuard from "../hooks/useLoginGuard";
 import { isValidMapUrl } from "../utils/validateUrl";
 import usePageTitle from "../hooks/usePageTitle";
 
-const ALL_CATEGORIES = ["Korean", "Asian", "Cafe/Brunch", "Western", "Dessert/Bakery", "Other"];
+const ALL_CATEGORIES = ["Korean", "Asian", "Cafe", "Western", "Dessert/Bakery", "Other"];
 
 export default function RecoPage() {
-  usePageTitle("Food Picks — discover together");
+  usePageTitle("Local Eats");
   const navigate = useNavigate();
   const { user, profile, activeCityId, viewCityId, guest, basePath } = useAuth();
   const { requireLogin, showLoginModal, setShowLoginModal } = useLoginGuard();
@@ -189,14 +189,14 @@ export default function RecoPage() {
 
   return (
     <div className="px-4 pt-24 md:py-16 pb-40">
-      <h2 className="text-heading font-bold text-ink">Neighborhood food picks, discovered together</h2>
-      <p className="text-body text-ink-soft mt-1 mb-3.5 leading-relaxed">Loved a place? Hit 'Like'. Enough likes and it becomes a neighborhood favorite</p>
+      <h2 className="text-heading font-bold text-ink">Where the locals actually eat</h2>
+      <p className="text-body text-ink-soft mt-1 mb-3.5 leading-relaxed">Real recommendations from your neighbors — like it, and help others find it too</p>
 
       {loading ? (
         <div className="text-center text-body text-ink-soft py-12">Loading...</div>
       ) : recos.length === 0 && catFilter === "All" ? (
         <Card className="text-center text-body text-ink-soft py-8 mt-8">
-          No food picks yet. Be the first to share your recommendation!
+          No recommendations yet — share a spot you love!
           <p className="text-meta text-ink-soft/70 mt-1.5">Reach 100 likes and earn the Foodie badge</p>
           <button
             onClick={() => tryCreate()}
@@ -227,7 +227,7 @@ export default function RecoPage() {
             {popular.length > 0 && catFilter === "All" && (
               <div className="mb-4">
                 <div className="text-body font-bold text-ink mb-2 inline-flex items-center gap-1">
-                  <Heart size={16} weight="fill" className="text-flame" /> Neighborhood favorites — Top 3
+                  <Heart size={16} weight="fill" className="text-flame" /> Most loved spots
                 </div>
                 {popular.map((r) => renderCard(r, true))}
               </div>
@@ -245,8 +245,8 @@ export default function RecoPage() {
       {!isViewing && <Fab onClick={() => tryCreate()} label="+ Recommend a place" />}
 
       <Modal open={showCreate} onClose={() => { setShowCreate(false); setEditItem(null); }}
-        title={editItem ? "Edit recommendation" : "Share your favorite spot?"}
-        subtitle={editItem ? null : "Even one recommendation can help a neighbor discover something great"}
+        title={editItem ? "Edit recommendation" : "Know a great spot?"}
+        subtitle={editItem ? null : "Your favorite place could become someone else's new regular"}
         action={<button
           className={`w-full py-3.5 rounded-xl font-bold text-title transition-colors cursor-pointer ${
             editItem || (form.name && form.note && form.suburbId) ? "bg-ember text-white hover:bg-ember-deep" : "bg-ink/20 text-ink-soft cursor-not-allowed"

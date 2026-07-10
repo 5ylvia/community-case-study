@@ -9,7 +9,7 @@ export default function TabBar() {
   const tabs = [
     { to: `${basePath}/homemeal`, icon: CookingPot, label: "Home Meal" },
     { to: `${basePath}/together`, icon: Handshake, label: "Together" },
-    { to: `${basePath}/reco`, icon: ForkKnife, label: "Food Picks" },
+    { to: `${basePath}/reco`, icon: ForkKnife, label: "Local Eats" },
     { to: "/me", icon: User, label: "Profile" },
   ];
   const visibleTabs = guest ? tabs.filter((t) => !t.to.endsWith("/me")) : tabs;

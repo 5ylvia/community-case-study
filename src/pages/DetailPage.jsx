@@ -28,7 +28,7 @@ export default function DetailPage() {
   const [alert, setAlert] = useState({ open: false, type: "success", message: "" });
   const [secureAddress, setSecureAddress] = useState(null);
 
-  const typeLabel = type === "homemeal" ? "Home Meal" : type === "meeting" ? "Together" : type === "reco" ? "Food Pick" : "";
+  const typeLabel = type === "homemeal" ? "Home Meal" : type === "meeting" ? "Together" : type === "reco" ? "Local Eats" : "";
   const itemTitle = item?.title || item?.name || "";
   usePageTitle(itemTitle ? `${itemTitle} — ${typeLabel}` : null);
 
@@ -92,7 +92,7 @@ export default function DetailPage() {
     setConfirm(null);
   }
 
-  // Food pick like
+  // Local eats like
   async function handleAgree() {
     if (!user) { setShowLoginModal(true); return; }
     // TODO: replace with mock data
@@ -167,7 +167,7 @@ export default function DetailPage() {
         </div>
       )}
 
-      {/* Food pick meta */}
+      {/* Local eats meta */}
       {isReco && (
         <div className="flex gap-x-3 gap-y-1 text-meta text-ink-soft mb-4">
           <span>Recommended by {item.author?.nickname || "Unknown"}</span>
@@ -213,7 +213,7 @@ export default function DetailPage() {
             ) : (
               <button onClick={handleJoin} className={`px-4 py-2.5 rounded-lg text-white font-bold text-body-sm cursor-pointer hover:-translate-y-0.5 hover:shadow-md transition-all ${isFull ? "bg-ink-soft" : "bg-ink"}`}>
                 {isFull ? "Join waitlist"
-                  : isHomemeal ? (item.kind === "cook" ? "Cook together" : item.kind === "potluck" ? "Join share" : "Claim free")
+                  : isHomemeal ? (item.kind === "cook" ? "Cook together" : item.kind === "potluck" ? "Join in" : "Get it free")
                   : (item.kind === "go" ? "Eat together" : "Buy together")}
               </button>
             )
@@ -221,11 +221,11 @@ export default function DetailPage() {
         </div>
       )}
 
-      {/* Food pick like */}
+      {/* Local eats like */}
       {isReco && (
         <div className="flex justify-between items-center pt-3 border-t border-line">
           <span className="inline-flex items-center gap-1 text-meta text-ink-soft">
-            <Heart size={14} weight={agreeCount > 0 ? "fill" : "regular"} className={agreeCount > 0 ? "text-flame" : ""} /> {agreeCount} people liked this
+            <Heart size={14} weight={agreeCount > 0 ? "fill" : "regular"} className={agreeCount > 0 ? "text-flame" : ""} /> {agreeCount} likes
           </span>
           <button onClick={handleAgree}
             className={`border rounded-lg px-4 py-2 text-body-sm font-bold transition-all duration-150 hover:-translate-y-0.5 hover:shadow-md cursor-pointer inline-flex items-center gap-1 ${

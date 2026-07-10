@@ -39,7 +39,7 @@ The logo's 3 colors form the brand core — flame-red (#960100, body) / flame (#
 |-------|-----------|
 | `ember` (orange) | **Primary action buttons only** + Ember progress cells. Do not use for filter chips or other elements. |
 | `herb` (green) | **Completed / success states** (joined, applied, done) |
-| `flame` (yellow) | **Accent / highlight** (popular Food Picks glow, waitlist status) |
+| `flame` (yellow) | **Accent / highlight** (popular Local Eats glow, waitlist status) |
 | `flame-red` (red) | **Full Ember cells + destructive action confirm** (cancel, etc.) |
 | `ink` (brown) | **Main text + active filters + FAB** |
 | `ink-soft` (light brown) | **Secondary text + empty Ember cells** |
@@ -93,7 +93,7 @@ Tags/badges        11px / 600-700
 - **Corners:** Cards `rounded-2xl` / Modals `rounded-t-[20px]` / Chips & tags `rounded-full` / Large buttons (ember) `rounded-xl` / Small buttons (ink) `rounded-lg`.
 - **Borders:** 1px `border-line` (brown 12%).
 - **Shadows:** Rarely used. Exceptions:
-  - Popular Food Picks glow: `shadow-[0_0_12px_rgba(254,183,0,0.33)]`
+  - Popular Local Eats glow: `shadow-[0_0_12px_rgba(254,183,0,0.33)]`
   - FAB: `shadow-[0_8px_22px_rgba(79,31,10,0.28)]`
 
 ---
@@ -109,7 +109,7 @@ Tags/badges        11px / 600-700
 - **Filter inactive:** `bg-card border-line text-ink`.
 - **Filter active:** `bg-ink text-paper`.
 - **FAB:** Mobile = full-width bar `bg-ember text-white rounded-[14px]`. Desktop = bottom-right circle + icon `bg-ember`. hover: `bg-ember-deep` + shadow.
-  - FAB labels: Home Meal "+ Start a Home Meal" / Together "Find people to join" / Food Picks "Recommend a spot"
+  - FAB labels: Home Meal "+ Start a Home Meal" / Together "Find people to join" / Local Eats "Recommend a spot"
 
 ### Button Radius Rules
 - **Large buttons (ember — FAB/modal actions):** `rounded-xl`
@@ -134,7 +134,7 @@ Tags/badges        11px / 600-700
   - **Location:** Always top right. Hidden if suburbName is empty string.
   - **Together address:** If starts with http, show "View map" link (`text-ember-deep underline`), otherwise CopyableAddress (copyable), hidden if empty.
 
-- **Food Picks card layout:**
+- **Local Eats card layout:**
   ```
   [Category tag] Restaurant name              Pin Location (top right)
   One-line review body
@@ -145,7 +145,7 @@ Tags/badges        11px / 600-700
   - **Home Meal address:** Only shown to confirmed attendees within 24h. Before that: "Pin Detailed location will be revealed 24 hours before".
 
 - **Title/description truncation:** Title `line-clamp-1`, description `line-clamp-3`.
-- Popular Food Picks (top 3): `glow` prop for yellow glow.
+- Popular Local Eats (top 3): `glow` prop for yellow glow.
 
 ### Chips, Tags & Button Visual Hierarchy
 
@@ -159,7 +159,7 @@ Tags/badges        11px / 600-700
 - **MyActivity filter chips:** All / My Groups / Joined / Waitlisted. Default 3 + show more.
 - **Reason tags** (Together only, label purpose): `bg-ember/12 text-ember-deep border-ember/25 text-[11px] font-semibold`. Max 2 on card, all on DetailPage.
 - **Type badges:** Neutral `bg-ink/6 text-ink-soft border-line`. Distinguished by icon only.
-- **Popular Food Picks likes:** Each card `Yellow-heart N`. Top 3 shown at feed top with glow. Likes are Heart (flame yellow), distinct from Ember (red/orange fire).
+- **Popular Local Eats likes:** Each card `Yellow-heart N`. Top 3 shown at feed top with glow. Likes are Heart (flame yellow), distinct from Ember (red/orange fire).
 
 ### Avatars
 - `w-6 h-6 rounded-full text-white text-[11px] font-bold`. First letter of name. Host=`bg-ember-deep`, participant=`bg-ink-soft`.
@@ -198,7 +198,7 @@ Tags/badges        11px / 600-700
 ### Empty States
 - **First resident:** Large flame symbol + "Fire You could be [city]'s first Ember" + share button (`bg-ember`).
 - **Empty feed (Home Meal/Together):** 6 example cards (2x3 grid, `border-dashed` cards). Click opens create modal.
-- **Food Picks/Profile empty feed:** Only hide filter chips (no example cards).
+- **Local Eats/Profile empty feed:** Only hide filter chips (no example cards).
 - Empty state tone: Not "nothing here yet" but "you can start this".
 
 ### Checkbox
@@ -216,7 +216,7 @@ Tags/badges        11px / 600-700
 - **ReviewSection (Host):** No-show collapsible card + add firewood box. Add = ember, remove = flame-red. "Complete Review" button (`bg-ember`) standalone below the box.
 - **DetailPage:** `<- Go back` (CaretLeft, `text-ink-soft`).
   - Home Meal / Together: Host, date -> all reason tags -> description -> comments -> bottom sticky (avatars + capacity + action button).
-  - Food Picks: Restaurant name -> author, location, map -> description -> likes.
+  - Local Eats: Restaurant name -> author, location, map -> description -> likes.
 - **AlertBanner:** Slide down, auto-close after 3s. success/waitlist/info types. Nickname duplicate error shown as absolute inline below input field.
 - **Modal `action` prop:** Submit button as bottom sticky (safe-area-inset-bottom padding).
 
@@ -243,7 +243,7 @@ Tags/badges        11px / 600-700
   - Inside action buttons: `fill`
   - Like (Heart): before press `regular`, after `fill` (flame yellow)
 - **Icons in use:**
-  - Tab bar: CookingPot (Home Meal), Handshake (Together), ForkKnife (Food Picks), User (Profile)
+  - Tab bar: CookingPot (Home Meal), Handshake (Together), ForkKnife (Local Eats), User (Profile)
   - Home Meal types: ChefHat (Cook together), PuzzlePiece (Potluck), Heart (Share)
   - Together types: ForkKnife (Eat together), ShoppingCart (Buy together)
   - Common: MapPin, CalendarBlank, Clock, Users, Fire, Heart, CheckCircle, HourglassSimple, Info, X, Plus, Minus, Trophy, Bell, CaretDown, SignOut, Pencil, Trash, ChatCircle, CrownSimple, Copy, WarningCircle, Shrimp, CaretLeft
@@ -261,7 +261,7 @@ Tags/badges        11px / 600-700
 | App (Header) | Don't eat alone, let's eat together | Alternates every 4s |
 | Home Meal | Home-cooked meals taste better together | Share cooking with neighbors — no buying or selling |
 | Together | When it's too much alone, do it together | That restaurant with big portions, that bulk buy... eat together, buy together |
-| Food Picks | Find the best spots in our neighborhood | Liked it? Hit 'like'. Enough likes make it a neighborhood favorite Yellow-heart |
+| Local Eats | Find the best spots in our neighborhood | Liked it? Hit 'like'. Enough likes make it a neighborhood favorite Yellow-heart |
 | Profile | The more Jeong you share, the brighter your Ember | Trust grows as Ember, activity lives on as rankings and badges |
 | Terms (/terms) | (Title only) | Terms of Service + Privacy Policy. Accessible without login. No header/tab bar. |
 
@@ -278,13 +278,13 @@ Tags/badges        11px / 600-700
 - **Create modal titles:**
   - Together: "Want to do it together?" / "What feels like too much alone becomes easy together"
   - Home Meal: "Home meal together?" / "When there's too much, too hard, or too boring — do it together"
-  - Food Picks: "Share your favorite spot?" / "Even one recommendation can help someone"
+  - Local Eats: "Share your favorite spot?" / "Even one recommendation can help someone"
 - **Review description (ReviewModal):**
   - Participant: "Add firewood to someone you'd love to meet again. It grows their Ember. All reviews take effect after the host closes them."
   - Host no-show step: "Let us know if anyone didn't show up."
   - Host firewood step: "Add firewood to someone you'd love to meet again. It grows their Ember."
 - **Action button text:**
-  - Home Meal: "Let's cook together" (cook) / "Start potluck" (potluck) / "I'll share" (share)
+  - Home Meal: "Let's cook together" (cook) / "Let's share" (share) / "Give it away" (free)
   - Together: "Let's do it"
 - **PastItem status buttons:**
   - Leave review: `ink-soft` + underline

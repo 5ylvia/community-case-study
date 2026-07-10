@@ -73,7 +73,7 @@ export default function DetailModal({ open, onClose, item, type, myStatus, joine
         <button onClick={() => onJoin?.(item)}
           className="px-4 py-2.5 rounded-lg bg-ink text-white font-bold text-body-sm cursor-pointer hover:-translate-y-0.5 hover:shadow-md transition-all">
           {isHomemeal
-            ? (item.kind === "cook" ? "Cook Together" : item.kind === "potluck" ? "Join share" : "Claim free")
+            ? (item.kind === "cook" ? "Cook Together" : item.kind === "potluck" ? "Join in" : "Get it free")
             : (item.kind === "go" ? "Eat Together" : "Buy Together")}
         </button>
       );
@@ -114,7 +114,7 @@ export default function DetailModal({ open, onClose, item, type, myStatus, joine
         {isFull
           ? <><ClockCountdown size={14} className="inline -mt-0.5" /> Join waitlist</>
           : isHomemeal
-            ? (item.kind === "cook" ? "Cook Together" : item.kind === "potluck" ? "Join share" : "Claim free")
+            ? (item.kind === "cook" ? "Cook Together" : item.kind === "potluck" ? "Join in" : "Get it free")
             : (item.kind === "go" ? "Eat Together" : "Buy Together")}
       </button>
     );
@@ -220,7 +220,7 @@ export default function DetailModal({ open, onClose, item, type, myStatus, joine
           </div>
         )}
 
-        {/* Food Picks meta */}
+        {/* Local Eats meta */}
         {isReco && (
           <div className="flex justify-between text-meta text-ink-soft mb-3">
             <div className="flex items-center gap-1.5">

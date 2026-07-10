@@ -31,7 +31,7 @@ const filters = [
 ];
 
 export default function TogetherPage() {
-  usePageTitle("Let's Do Together — better with company");
+  usePageTitle("Together");
   const navigate = useNavigate();
   const { user, profile, activeCityId, viewCityId, guest, basePath } = useAuth();
   const { requireLogin, showLoginModal, setShowLoginModal } = useLoginGuard();
@@ -234,15 +234,15 @@ export default function TogetherPage() {
 
   return (
     <div className="px-4 pt-24 md:py-16 pb-40">
-      <h2 className="text-heading font-bold text-ink">Better with company? Let's do it together</h2>
-      <p className="text-body text-ink-soft mt-1 mb-3.5 leading-relaxed">That restaurant with huge portions, those groceries too much for one... eat together, buy together</p>
+      <h2 className="text-heading font-bold text-ink">Too much for one? Let's split it</h2>
+      <p className="text-body text-ink-soft mt-1 mb-3.5 leading-relaxed">Big portions, bulk groceries, or just need someone to go with — find your people</p>
 
       {loading ? (
         <div className="text-center text-body text-ink-soft py-12">Loading...</div>
       ) : meetings.length === 0 ? (
         <div>
           <Card className="text-center text-body text-ink-soft py-6 mb-4 mt-8">
-            No meetups yet. Things are lighter when shared — want to start one?
+            Nothing here yet — start something and find your crew!
           </Card>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5">
             {[
@@ -369,7 +369,7 @@ export default function TogetherPage() {
 
       <Modal open={showCreate} onClose={() => { setShowCreate(false); setEditItem(null); }}
         title={editItem ? "Edit" : "Want to do it together?"}
-        subtitle={editItem ? null : "Things that feel like too much alone become easy when shared"}
+        subtitle={editItem ? null : "That thing you can't do alone — someone nearby is probably thinking the same"}
         action={<button
           className={`w-full py-3.5 rounded-xl font-bold text-title transition-colors cursor-pointer ${
             editItem || (form.title && form.meetAt) ? "bg-ember text-white hover:bg-ember-deep" : "bg-ink/20 text-ink-soft cursor-not-allowed"

@@ -32,7 +32,7 @@ const kindFilters = [
 ];
 
 export default function HomemealPage() {
-  usePageTitle("Home Meal — better when made together");
+  usePageTitle("Home Meal");
   const navigate = useNavigate();
   const { user, profile, activeCityId, viewCityId, guest, basePath } = useAuth();
   const { requireLogin, showLoginModal, setShowLoginModal } = useLoginGuard();
@@ -261,9 +261,9 @@ export default function HomemealPage() {
 
   return (
     <div className="px-4 pt-24 md:py-16 pb-40">
-      <h2 className="text-heading font-bold text-ink">Home meals, better when made together</h2>
+      <h2 className="text-heading font-bold text-ink">Cook it, share it, eat together</h2>
       <p className="text-body text-ink-soft mt-1 mb-3.5 leading-relaxed">
-        Too much to cook alone? Make it and share it with neighbors (no buying or selling)
+        Made too much? Cook together, swap sides, or give it away — no selling, just sharing
       </p>
 
       {loading ? (
@@ -271,7 +271,7 @@ export default function HomemealPage() {
       ) : meals.length === 0 ? (
         <div>
           <Card className="text-center text-body text-ink-soft py-6 mb-4 mt-8">
-            No meetups yet. How about cooking a home meal with your neighbors?
+            Nothing here yet — be the first to share a meal!
           </Card>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-2.5">
             {[
@@ -390,14 +390,14 @@ export default function HomemealPage() {
 
       <Modal open={showCreate} onClose={() => { setShowCreate(false); setEditItem(null); }}
         title={editItem ? "Edit" : "Share a home meal?"}
-        subtitle={editItem ? null : "Got leftovers, too much to cook, or just want company? Let's do it together"}
+        subtitle={editItem ? null : "Leftovers, batch cooking, or just want company in the kitchen"}
         action={<button
           className={`w-full py-3.5 rounded-xl font-bold text-title transition-colors cursor-pointer ${
             editItem || (form.title && form.address && form.suburbId && form.shareAt) ? "bg-ember text-white hover:bg-ember-deep" : "bg-ink/20 text-ink-soft cursor-not-allowed"
           }`}
           disabled={!editItem && (!form.title || !form.address || !form.suburbId || !form.shareAt)}
           onClick={handleSave}>
-          {editItem ? "Save" : form.kind === "cook" ? "Let's cook together" : form.kind === "potluck" ? "Start sharing" : "Give it away"}
+          {editItem ? "Save" : form.kind === "cook" ? "Let's cook together" : form.kind === "potluck" ? "Let's share" : "Give it away"}
         </button>}>
         <HomemealForm form={form} setForm={setForm} editMode={!!editItem} showErrors={!editItem} />
       </Modal>

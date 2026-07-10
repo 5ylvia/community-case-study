@@ -23,12 +23,12 @@ const BADGE_META = {
 const BADGE_DESCS = {
   pioneer: () => "Completed your first meetup",
   sharer: () => "Shared 5 home meals",
-  foodie: () => "Your food pick reached 100 likes",
+  foodie: () => "Your local eats recommendation reached 100 likes",
 };
 
 
 export default function MePage() {
-  usePageTitle("Profile — sharing Jeong");
+  usePageTitle("Profile");
   const { user, profile, signOut, fetchProfile } = useAuth();
   const [showFlameInfo, setShowFlameInfo] = useState(false);
 
@@ -109,8 +109,8 @@ export default function MePage() {
 
       {/* Title */}
       <div className="mb-3.5">
-        <h2 className="text-heading font-bold text-ink">The more you share, the brighter your Ember</h2>
-        <p className="text-body text-ink-soft mt-1 leading-relaxed">Trust grows into Embers, and your activity is captured in rankings and badges</p>
+        <h2 className="text-heading font-bold text-ink">Share more, glow brighter</h2>
+        <p className="text-body text-ink-soft mt-1 leading-relaxed">Your trust shows as Embers — keep showing up and they'll keep growing</p>
       </div>
 
       {/* Ember */}

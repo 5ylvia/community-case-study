@@ -66,7 +66,7 @@ export default function CitySelectPage() {
           <img src={symbol} alt="Dajeong" className="h-14 mx-auto mb-3" />
           <h2 className="text-heading font-bold text-ink">{nickname}, where do you live?</h2>
           <p className="text-body text-ink-soft mt-1 leading-relaxed">
-            We'll show you nearby meetups, home meals, and food picks
+            We'll show you nearby meetups, home meals, and local eats
           </p>
         </div>
 

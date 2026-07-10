@@ -201,7 +201,7 @@ export default function MyActivity() {
 
   const [showCount, setShowCount] = useState(3);
 
-  // gathering / home meal list (excluding food picks, deduplicated)
+  // gathering / home meal list (excluding local eats, deduplicated)
   const items = [];
   const seenIds = new Set();
   if (showHosted) {
@@ -223,7 +223,7 @@ export default function MyActivity() {
     });
   }
 
-  // food picks separate
+  // local eats separate
   const myRecos = hosted.recos || [];
 
   const upcomingItems = items.filter((i) => !isPast(i) && !isCancelled(i)).sort((a, b) => new Date(a._date) - new Date(b._date));
@@ -359,10 +359,10 @@ export default function MyActivity() {
         </>
       )}
 
-      {/* My Food Picks */}
+      {/* My Local Eats */}
       {myRecos.length > 0 && (
         <>
-          <div className="text-body font-bold mb-2.5 px-0.5 mt-6">My Food Picks</div>
+          <div className="text-body font-bold mb-2.5 px-0.5 mt-6">My Local Eats</div>
           {myRecos.map((r) => renderItem({ ...r, _type: "reco", _role: "hosted" }))}
         </>
       )}
@@ -392,7 +392,7 @@ export default function MyActivity() {
         } : {})} />
 
       <Modal open={!!editItem} onClose={() => setEditItem(null)}
-        title={editItem?._type === "reco" ? "Edit Food Pick" : "Edit"}
+        title={editItem?._type === "reco" ? "Edit Local Eats" : "Edit"}
         action={<button className="w-full py-3.5 rounded-xl bg-ember text-white font-bold text-title hover:bg-ember-deep transition-colors cursor-pointer" onClick={handleSave}>Save</button>}>
         {editItem?._type === "meeting" && <MeetingForm form={editForm} setForm={setEditForm} editMode />}
         {editItem?._type === "homemeal" && <HomemealForm form={editForm} setForm={setEditForm} editMode />}

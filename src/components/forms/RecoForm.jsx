@@ -3,7 +3,7 @@ import InputWithCounter from "../InputWithCounter";
 import SuburbSelect from "../SuburbSelect";
 import Dropdown from "../Dropdown";
 
-const CATEGORIES = ["Korean", "Asian", "Cafe / Brunch", "Western", "Dessert / Bakery", "Other"];
+const CATEGORIES = ["Korean", "Asian", "Cafe", "Western", "Dessert / Bakery", "Other"];
 const CATEGORY_OPTIONS = CATEGORIES.map((c) => ({ value: c, label: c }));
 
 export default function RecoForm({ form, setForm, editMode }) {
