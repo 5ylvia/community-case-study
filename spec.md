@@ -478,7 +478,7 @@ activity_logs — id, user_id, action(text), target_type(text), target_id(text),
 6. **Security:**
    - XSS prevention: React auto-escaping + `safeHref()` (http/https only).
    - Input length: DB CHECK constraints.
-   - Home Meal address protection: `get_homemeal_address` RPC.
+   - Home Meal address protection: excluded from list queries, DB-level column revoke blocks direct API access, revealed only via `get_homemeal_address` RPC (confirmed participants, within 24h).
    - Enhanced RLS: comment edit/delete owner-only, event edit host-only, Local Eats edit author-only, reviews insert self or system.
    - Core action logging: `activity_logs` table + `logActivity` utility.
 
