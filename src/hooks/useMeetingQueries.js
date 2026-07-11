@@ -16,7 +16,7 @@ export function useMeetingsInfinite(cityId, filter) {
     return () => listeners.delete(handler);
   }, []);
 
-  let filtered = store.items.filter((m) => m.city_id === cityId);
+  let filtered = store.items.filter((m) => m.city_id === cityId && !m.cancelled && !m.deleted_at);
   if (filter && filter !== "all") filtered = filtered.filter((m) => m.kind === filter);
 
   return { data: { pages: [filtered] }, isLoading: false, isFetchingNextPage: false, fetchNextPage: () => {}, hasNextPage: false };

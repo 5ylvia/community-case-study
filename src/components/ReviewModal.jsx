@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../lib/auth";
+import { mockHomemeals, mockMeetings } from "../mocks/data";
+import { useMyReviews } from "../hooks/useReviewQueries";
 import Modal from "./Modal";
 import ReviewSection from "./ReviewSection";
 
@@ -18,7 +20,36 @@ export default function ReviewModal() {
 
   useEffect(() => {
     if (!user) return;
-    // findPendingReview was fetching from supabase
+    const dismissed = getDismissedIds();
+
+    // Find completed homemeals where user is a participant and hasn't been dismissed
+    const pendingHomemeal = mockHomemeals.find((h) =>
+      h.completed && !h.review_closed && !dismissed.includes(h.id) &&
+      h.claims?.some((c) => c.user_id === user.id)
+    );
+    if (pendingHomemeal) {
+      setPending({
+        type: "homemeal",
+        item: pendingHomemeal,
+        participants: pendingHomemeal.claims.filter((c) => c.status === "joined"),
+        hostNickname: pendingHomemeal.host?.nickname || "Host",
+      });
+      return;
+    }
+
+    // Find completed meetings
+    const pendingMeeting = mockMeetings.find((m) =>
+      m.completed && !m.review_closed && !dismissed.includes(m.id) &&
+      m.meeting_participants?.some((p) => p.user_id === user.id)
+    );
+    if (pendingMeeting) {
+      setPending({
+        type: "meeting",
+        item: pendingMeeting,
+        participants: pendingMeeting.meeting_participants.filter((p) => p.status === "joined"),
+        hostNickname: pendingMeeting.host?.nickname || "Host",
+      });
+    }
   }, [user]);
 
   if (!pending) return null;
@@ -36,7 +67,7 @@ export default function ReviewModal() {
         hostId={pending.item.host_id}
         hostNickname={pending.hostNickname}
         isHomemeal={pending.type === "homemeal"}
-        onComplete={() => setPending(null)}
+        onComplete={() => { dismissId(pending.item.id); setPending(null); }}
       />
       <div className="py-4 text-center">
         <button

@@ -17,7 +17,7 @@ export function useHomemealsInfinite(cityId, filter) {
     return () => listeners.delete(handler);
   }, []);
 
-  let filtered = store.items.filter((h) => h.city_id === cityId);
+  let filtered = store.items.filter((h) => h.city_id === cityId && !h.cancelled && !h.deleted_at);
   if (filter && filter !== "all") filtered = filtered.filter((h) => h.kind === filter);
 
   return { data: { pages: [filtered] }, isLoading: false, isFetchingNextPage: false, fetchNextPage: () => {}, hasNextPage: false };

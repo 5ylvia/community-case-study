@@ -181,7 +181,7 @@ export default function DetailPage() {
               ? secureAddress.startsWith("http")
                 ? <a href={safeHref(secureAddress)} target="_blank" rel="noopener noreferrer" className="text-ink underline inline-flex items-center gap-0.5 shrink-0"><NavigationArrow size={12} /> View map</a>
                 : <span className="inline-flex items-center gap-0.5 shrink-0"><MapPinSimple size={12} /> <CopyableAddress address={secureAddress} /></span>
-              : <span className="italic inline-flex items-center gap-0.5 shrink-0"><MapPinSimple size={12} /> Revealed 24h before</span>
+              : <span className="italic inline-flex items-center gap-0.5 shrink-0"><MapPinSimple size={12} /> Shown 24h before</span>
           )}
         </div>
       )}

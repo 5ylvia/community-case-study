@@ -16,7 +16,7 @@ export function useRecosInfinite(cityId, category) {
     return () => listeners.delete(handler);
   }, []);
 
-  let filtered = store.items.filter((r) => r.city_id === cityId);
+  let filtered = store.items.filter((r) => r.city_id === cityId && !r.deleted_at);
   if (category && category.toLowerCase() !== "all") filtered = filtered.filter((r) => r.category === category);
 
   return { data: { pages: [filtered] }, isLoading: false, isFetchingNextPage: false, fetchNextPage: () => {}, hasNextPage: false };

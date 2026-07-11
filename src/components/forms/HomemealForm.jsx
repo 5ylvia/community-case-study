@@ -45,7 +45,7 @@ export default function HomemealForm({ form, setForm, editMode, showErrors }) {
           <SuburbSelect value={form.suburbId}
             onChange={(id) => setForm(f => ({ ...f, suburbId: id }))} />
         </FormField>
-        <FormField label={<>Address * <span className="text-tag text-ink-soft font-normal">· Shared with participants 24h before</span></>}>
+        <FormField label={<>Address * <span className="text-tag text-ink-soft font-normal">· Shown 24h before</span></>}>
           <InputWithCounter placeholder="Google Maps link or address" value={form.address || ""} maxLength={100}
             onChange={(e) => setForm(f => ({ ...f, address: e.target.value }))} />
         </FormField>

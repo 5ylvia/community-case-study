@@ -211,7 +211,7 @@ export default function DetailModal({ open, onClose, item, type, myStatus, joine
                   ? secureAddress.startsWith("http")
                     ? <a href={safeHref(secureAddress)} target="_blank" rel="noopener noreferrer" className="text-ink underline inline-flex items-center gap-0.5"><MapPinSimple size={12} /> View map</a>
                     : <span className="inline-flex items-center gap-0.5"><MapPinSimple size={12} /> <CopyableAddress address={secureAddress} /></span>
-                  : <span className="italic inline-flex items-center gap-0.5"><MapPinSimple size={12} /> Address shared 24 hours before</span>
+                  : <span className="italic inline-flex items-center gap-0.5"><MapPinSimple size={12} /> Shown 24h before</span>
               ) : suburbName ? (
                 <><MapPin size={12} /> {suburbName}</>
               ) : null}
