@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { ShareNetwork } from "../components/icons";
 import { useAuth } from "../lib/auth";
-// TODO: replace with mock
 const selectCity = async () => {}; // stub
 const requestCity = async () => {}; // stub
 import { useCities } from "../hooks/useProfileQueries";

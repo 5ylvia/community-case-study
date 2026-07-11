@@ -11,6 +11,9 @@ import { safeHref } from "../utils/validateUrl";
 import usePageTitle from "../hooks/usePageTitle";
 import { useAuth } from "../lib/auth";
 import { mockHomemeals, mockMeetings, mockRecos } from "../mocks/data";
+import { useJoinHomemeal, useLeaveHomemeal, invalidateHomemeals } from "../hooks/useHomemealQueries";
+import { useJoinMeeting, useLeaveMeeting } from "../hooks/useMeetingQueries";
+import { useToggleAgree } from "../hooks/useRecoQueries";
 import AlertBanner from "../components/AlertBanner";
 import LoginModal from "../components/LoginModal";
 import ConfirmModal from "../components/ConfirmModal";
@@ -27,6 +30,12 @@ export default function DetailPage() {
   const [confirm, setConfirm] = useState(null);
   const [alert, setAlert] = useState({ open: false, type: "success", message: "" });
   const [secureAddress, setSecureAddress] = useState(null);
+  const [, forceUpdate] = useState(0);
+  const joinHomemeal = useJoinHomemeal();
+  const leaveHomemeal = useLeaveHomemeal();
+  const joinMeeting = useJoinMeeting();
+  const leaveMeeting = useLeaveMeeting();
+  const toggleAgree = useToggleAgree();
 
   const typeLabel = type === "homemeal" ? "Home Meal" : type === "meeting" ? "Together" : type === "reco" ? "Local Eats" : "";
   const itemTitle = item?.title || item?.name || "";
@@ -76,27 +85,37 @@ export default function DetailPage() {
     setAlert({ open: true, type, message });
   }
 
-  // TODO: replace with mock data
   async function reload() {}
 
   // Join/cancel
   async function handleJoin() {
     if (!user) { setShowLoginModal(true); return; }
-    // TODO: replace with mock data
-    showAlertMsg("info", "This feature is not connected yet.");
+    if (myStatus) {
+      const label = isHomemeal ? "Cancel participation" : "Cancel participation";
+      setConfirm({ title: label, message: `Cancel your spot in "${item.title}"?`, cancelText: "Close", confirmColor: "bg-flame-red" });
+      return;
+    }
+    const cnt = joinedCount;
+    const status = (item.capacity && cnt >= item.capacity) ? "waitlist" : "joined";
+    if (isHomemeal) await joinHomemeal.mutateAsync({ homemealId: item.id, userId: user.id, status });
+    if (isMeeting) await joinMeeting.mutateAsync({ meetingId: item.id, userId: user.id, status });
+    forceUpdate((v) => v + 1);
+    showAlertMsg(status === "waitlist" ? "waitlist" : "success", status === "waitlist" ? `You're on the waitlist!` : `Joined ${item.title}!`);
   }
 
   async function handleConfirmCancel() {
-    // TODO: replace with mock data
-    showAlertMsg("info", "This feature is not connected yet.");
+    if (isHomemeal) await leaveHomemeal.mutateAsync({ homemealId: item.id, userId: user.id });
+    if (isMeeting) await leaveMeeting.mutateAsync({ meetingId: item.id, userId: user.id });
+    forceUpdate((v) => v + 1);
     setConfirm(null);
+    showAlertMsg("success", "Cancelled.");
   }
 
   // Local eats like
   async function handleAgree() {
     if (!user) { setShowLoginModal(true); return; }
-    // TODO: replace with mock data
-    showAlertMsg("info", "This feature is not connected yet.");
+    await toggleAgree.mutateAsync({ recoId: item.id, userId: user.id });
+    forceUpdate((v) => v + 1);
   }
 
   function kindIcon() {

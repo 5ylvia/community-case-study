@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { CookingPot, Handshake, ForkKnife, Heart, CaretDown, Pencil, Trash, Users, MapPin, Info, HourglassSimple } from "./icons";
 import { useAuth } from "../lib/auth";
 import { useMyHosted, useMyJoined, invalidateMyActivity } from "../hooks/useProfileQueries";
-// TODO: replace with mock
 const deleteMeeting = async () => {};
 const updateMeeting = async () => {};
 const deleteHomemeal = async () => {};

@@ -1,19 +1,23 @@
-import { useState, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { mockMeetings } from "../mocks/data";
 
-const store = { items: [...mockMeetings] };
+const store = { items: mockMeetings, version: 0 };
 const listeners = new Set();
-function notify() { listeners.forEach((fn) => fn({})); }
+function notify() {
+  store.version++;
+  listeners.forEach((fn) => fn(store.version));
+}
 
 export function useMeetingsInfinite(cityId, filter) {
-  const [, rerender] = useState({});
-  useState(() => { listeners.add(rerender); return () => listeners.delete(rerender); });
+  const [, setVer] = useState(0);
+  useEffect(() => {
+    const handler = (v) => setVer(v);
+    listeners.add(handler);
+    return () => listeners.delete(handler);
+  }, []);
 
-  const filtered = useMemo(() => {
-    let result = store.items.filter((m) => m.city_id === cityId);
-    if (filter && filter !== "all") result = result.filter((m) => m.kind === filter);
-    return result;
-  }, [cityId, filter, store.items]);
+  let filtered = store.items.filter((m) => m.city_id === cityId);
+  if (filter && filter !== "all") filtered = filtered.filter((m) => m.kind === filter);
 
   return { data: { pages: [filtered] }, isLoading: false, isFetchingNextPage: false, fetchNextPage: () => {}, hasNextPage: false };
 }

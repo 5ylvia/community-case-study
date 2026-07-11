@@ -3,7 +3,6 @@ import { createPortal } from "react-dom";
 import { Log, CaretDown } from "./icons";
 import { useAuth } from "../lib/auth";
 import { useMyReviews, useSubmitReview } from "../hooks/useReviewQueries";
-// TODO: replace with mock
 const voteCook = async () => {};
 import AlertBanner from "./AlertBanner";
 

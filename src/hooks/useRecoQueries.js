@@ -1,19 +1,23 @@
-import { useState, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { mockRecos } from "../mocks/data";
 
-const store = { items: [...mockRecos] };
+const store = { items: mockRecos, version: 0 };
 const listeners = new Set();
-function notify() { listeners.forEach((fn) => fn({})); }
+function notify() {
+  store.version++;
+  listeners.forEach((fn) => fn(store.version));
+}
 
 export function useRecosInfinite(cityId, category) {
-  const [, rerender] = useState({});
-  useState(() => { listeners.add(rerender); return () => listeners.delete(rerender); });
+  const [, setVer] = useState(0);
+  useEffect(() => {
+    const handler = (v) => setVer(v);
+    listeners.add(handler);
+    return () => listeners.delete(handler);
+  }, []);
 
-  const filtered = useMemo(() => {
-    let result = store.items.filter((r) => r.city_id === cityId);
-    if (category && category !== "all") result = result.filter((r) => r.category === category);
-    return result;
-  }, [cityId, category, store.items]);
+  let filtered = store.items.filter((r) => r.city_id === cityId);
+  if (category && category !== "all") filtered = filtered.filter((r) => r.category === category);
 
   return { data: { pages: [filtered] }, isLoading: false, isFetchingNextPage: false, fetchNextPage: () => {}, hasNextPage: false };
 }

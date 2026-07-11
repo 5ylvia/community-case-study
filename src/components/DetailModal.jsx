@@ -6,7 +6,6 @@ import CommentSection from "./CommentSection";
 import ReportModal from "./ReportModal";
 import { formatDate } from "../utils/formatDate";
 import { useAuth } from "../lib/auth";
-// TODO: replace with mock
 const getHomemealAddress = async () => null;
 import { safeHref } from "../utils/validateUrl";
 

@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { ForkKnife, ShoppingCart, CalendarBlank, MapPin, NavigationArrow, Pizza, Shrimp, BowlSteam, Bird, ChatCircle, CheckCircle, HourglassSimple, ClockCounterClockwise, CrownSimple, Pencil } from "../components/icons";
 import { useAuth } from "../lib/auth";
 import { useMeetingsInfinite, useCreateMeeting, useUpdateMeeting, useJoinMeeting, useLeaveMeeting } from "../hooks/useMeetingQueries";
-// TODO: replace with mock
 const notifyHost = async () => {};
 const notifyParticipants = async () => {};
 const promoteNextWaitlist = async () => {};

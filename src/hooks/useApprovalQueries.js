@@ -1,4 +1,3 @@
-// TODO: replace with mock
 // Dead imports removed: getWaitlist, approveParticipant, rejectParticipant from "../lib/api/approval"
 
 export function useWaitlist(meetingId, homemealId) {

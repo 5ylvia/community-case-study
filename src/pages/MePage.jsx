@@ -3,7 +3,6 @@ import { Trophy, Fire, Log, CaretDown, Pencil, SignOut } from "../components/ico
 import { useAuth } from "../lib/auth";
 import usePageTitle from "../hooks/usePageTitle";
 import { useBadges, useRanking, useCities, useSuburbs } from "../hooks/useProfileQueries";
-// TODO: replace with mock
 const selectCity = async () => {};
 const updateProfile = async () => {};
 const checkNickname = async () => false; // stub: always available

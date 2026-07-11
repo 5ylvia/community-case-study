@@ -18,7 +18,6 @@ export default function ReviewModal() {
 
   useEffect(() => {
     if (!user) return;
-    // TODO: replace with mock data
     // findPendingReview was fetching from supabase
   }, [user]);
 

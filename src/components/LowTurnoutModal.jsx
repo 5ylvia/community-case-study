@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../lib/auth";
-// TODO: replace with mock
 const checkLowTurnout = async () => [];
 const cancelLowTurnout = async () => {};
 import { invalidateMyActivity } from "../hooks/useProfileQueries";

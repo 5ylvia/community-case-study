@@ -25,13 +25,11 @@ export default function NotificationsPage({ onBack }) {
   const sentinelRef = useInfiniteScrollObserver(fetchNextPage, hasNextPage, loadingMore);
 
   async function markRead(id) {
-    // TODO: replace with mock data
     invalidateNotifications(user.id);
     checkUnread(user.id);
   }
 
   async function handleAcceptHandover() {
-    // TODO: replace with mock data
     setAlert({ open: true, type: "info", message: "This feature is not connected yet." });
     setHandoverLoading(false);
     setHandoverConfirm(null);

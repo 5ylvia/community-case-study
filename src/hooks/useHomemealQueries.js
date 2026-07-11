@@ -1,20 +1,24 @@
-import { useState, useMemo } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { mockHomemeals } from "../mocks/data";
 
-// Shared mutable store so join/leave persists across re-renders
-const store = { items: [...mockHomemeals] };
+// Shared mutable store
+const store = { items: mockHomemeals, version: 0 };
 const listeners = new Set();
-function notify() { listeners.forEach((fn) => fn({})); }
+function notify() {
+  store.version++;
+  listeners.forEach((fn) => fn(store.version));
+}
 
 export function useHomemealsInfinite(cityId, filter) {
-  const [, rerender] = useState({});
-  useState(() => { listeners.add(rerender); return () => listeners.delete(rerender); });
+  const [, setVer] = useState(0);
+  useEffect(() => {
+    const handler = (v) => setVer(v);
+    listeners.add(handler);
+    return () => listeners.delete(handler);
+  }, []);
 
-  const filtered = useMemo(() => {
-    let result = store.items.filter((h) => h.city_id === cityId);
-    if (filter && filter !== "all") result = result.filter((h) => h.kind === filter);
-    return result;
-  }, [cityId, filter, store.items]);
+  let filtered = store.items.filter((h) => h.city_id === cityId);
+  if (filter && filter !== "all") filtered = filtered.filter((h) => h.kind === filter);
 
   return { data: { pages: [filtered] }, isLoading: false, isFetchingNextPage: false, fetchNextPage: () => {}, hasNextPage: false };
 }
@@ -34,7 +38,6 @@ export function useJoinHomemeal() {
     mutateAsync: async ({ homemealId, userId, status }) => {
       const item = store.items.find((h) => h.id === homemealId);
       if (!item) return;
-      // Don't add duplicates
       if (item.claims.some((c) => c.user_id === userId)) return;
       const user = { id: userId, nickname: "mealbuddy" };
       item.claims.push({

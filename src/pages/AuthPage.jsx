@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeSlash, MapPin } from "../components/icons";
 import { useAuth } from "../lib/auth";
-// TODO: replace with mock
 const checkNickname = async () => false; // stub: always available
 import { useCities } from "../hooks/useProfileQueries";
 import FormField, { inputClass } from "../components/FormField";

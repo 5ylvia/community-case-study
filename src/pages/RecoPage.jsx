@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { MapPin, NavigationArrow, Heart, Pencil } from "../components/icons";
 import { useAuth } from "../lib/auth";
 import { useRecosInfinite, useCreateReco, useUpdateReco, useToggleAgree } from "../hooks/useRecoQueries";
-// TODO: replace with mock
 const notifyHost = async () => {};
 import Card from "../components/Card";
 import Chip from "../components/Chip";

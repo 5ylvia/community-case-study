@@ -1,5 +1,4 @@
 import { useState } from "react";
-// TODO: replace with mock
 const submitReport = async () => {};
 
 const REASONS = [

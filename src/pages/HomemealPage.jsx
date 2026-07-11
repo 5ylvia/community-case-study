@@ -3,7 +3,6 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { MapPin, CalendarBlank, PuzzlePiece, Heart, ChefHat, BowlSteam, Cookie, Leaf, Rows, Pepper, ChatCircle, CheckCircle, HourglassSimple, ClockCounterClockwise, CrownSimple, Pencil } from "../components/icons";
 import { useAuth } from "../lib/auth";
 import { useHomemealsInfinite, useCreateHomemeal, useUpdateHomemeal, useJoinHomemeal, useLeaveHomemeal } from "../hooks/useHomemealQueries";
-// TODO: replace with mock
 const notifyHost = async () => {};
 const notifyParticipants = async () => {};
 const promoteNextWaitlist = async () => {};
