@@ -17,7 +17,7 @@ export function useRecosInfinite(cityId, category) {
   }, []);
 
   let filtered = store.items.filter((r) => r.city_id === cityId);
-  if (category && category !== "all") filtered = filtered.filter((r) => r.category === category);
+  if (category && category.toLowerCase() !== "all") filtered = filtered.filter((r) => r.category === category);
 
   return { data: { pages: [filtered] }, isLoading: false, isFetchingNextPage: false, fetchNextPage: () => {}, hasNextPage: false };
 }
